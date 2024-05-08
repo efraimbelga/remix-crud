@@ -1,4 +1,7 @@
 import { Links, Meta, Outlet, Scripts } from "@remix-run/react";
+import "bootstrap/dist/css/bootstrap.css";
+import Navbar from "./components/Navbar";
+import Header from "./components/Header";
 
 export default function App() {
   return (
@@ -9,41 +12,12 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <div class="container-fluid p-5 bg-primary text-white text-center">
-          <h1>My First Bootstrap Page</h1>
-          <p>Resize this responsive page to see the effect!</p>
+        <Header />
+        <Navbar />
+        <div className="container mt-5">
+          <Outlet />
         </div>
-
-        <div class="container mt-5">
-          <div class="row">
-            <div class="col-sm-4">
-              <h3>Column 1</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-              <p>
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                laboris...
-              </p>
-            </div>
-            <div class="col-sm-4">
-              <h3>Column 2</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-              <p>
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                laboris...
-              </p>
-            </div>
-            <div class="col-sm-4">
-              <h3>Column 3</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-              <p>
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                laboris...
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <Outlet />
+        <div id="modal"></div>
 
         <Scripts />
       </body>
