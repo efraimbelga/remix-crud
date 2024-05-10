@@ -11,11 +11,13 @@ import {
   useSubmit,
 } from "@remix-run/react";
 import { json } from "@remix-run/node";
+import prisma from "../lib/db.server";
 
 export const loader = async ({ request }) => {
   const url = new URL(request.url);
   const q = url.searchParams.get("q");
-  const employees = await getContacts(q);
+  const employees = await prisma.employees.findMany();
+  // const employees = await getContacts(q);
   return json({ employees, q });
 };
 
@@ -49,22 +51,28 @@ const employees = () => {
   });
 
   const handleDeleteAllChecked = () => {
-    // const selectedEmployees = employeeArray
-    //   .filter((emp) => emp.checked === true)
-    //   .map((emp) => ({
-    //     id: emp.id,
-    //   }));
-    // if (selectedEmployees.length > 0) {
-    //   const answer = window.confirm("are you sure?");
-    //   if (answer) {
-    //     // deleteAllChecked(selectedEmployees);
-    //     deleteAllChecked(selectedEmployees).then((data) =>
-    //       dispatchSetEmployees({ type: "FETCH_SUCCESS", payload: data })
-    //     );
-    //   }
-    // } else {
-    alert("No employees selected");
-    // }
+    const selectedEmployees = employeeArray
+      .filter((emp) => emp.checked === true)
+      .map((emp) => emp.id);
+    if (selectedEmployees.length > 0) {
+      handleDelete(selectedEmployees);
+    } else {
+      alert("No employees selected");
+    }
+  };
+
+  const handleDelete = (ids) => {
+    const answer = window.confirm("Confirm delete!");
+    if (answer) {
+      submit(
+        { ids },
+        {
+          action: "delete",
+          method: "post",
+          ncType: "application/json",
+        }
+      );
+    }
   };
 
   const checkAllEmployees = (checked) => {
@@ -141,6 +149,7 @@ const employees = () => {
                 key={employee.id}
                 employee={employee}
                 checkRowEmployee={checkRowEmployee}
+                onDelete={handleDelete}
               />
             ))}
           </EmployeeTable>

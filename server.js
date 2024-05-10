@@ -1,5 +1,6 @@
 import { createRequestHandler } from "@remix-run/express";
 import express from "express";
+import sqlite from "sqlite3";
 
 const viteDevServer =
   process.env.NODE_ENV === "production"

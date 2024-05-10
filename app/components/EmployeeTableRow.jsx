@@ -1,7 +1,7 @@
 import { Link } from "@remix-run/react";
 import React from "react";
 
-const EmployeeTableRow = ({ employee, checkRowEmployee }) => {
+const EmployeeTableRow = ({ employee, checkRowEmployee, onDelete }) => {
   return (
     <>
       <tr key={employee.id}>
@@ -24,10 +24,13 @@ const EmployeeTableRow = ({ employee, checkRowEmployee }) => {
         <td>
           <Link to={employee.id} style={{ textDecoration: "none" }}>
             👁️
-          </Link>{" "}
-          <Link to={employee.id + "/delete"} style={{ textDecoration: "none" }}>
-            🗑️
           </Link>
+          <button
+            className="btn btn-default"
+            onClick={() => onDelete(employee.id)}
+          >
+            🗑️
+          </button>
         </td>
       </tr>
     </>
