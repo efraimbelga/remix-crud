@@ -17,6 +17,17 @@ export const loader = async ({ request }) => {
   const url = new URL(request.url);
   const q = url.searchParams.get("q");
   const employees = await prisma.employees.findMany();
+  // console.log({ q });
+  if (q !== null) {
+    const employees = await prisma.employees.findMany({
+      where: {
+        firstName: {
+          contains: q,
+        },
+      },
+    });
+    return json({ employees, q });
+  }
   // const employees = await getContacts(q);
   return json({ employees, q });
 };
