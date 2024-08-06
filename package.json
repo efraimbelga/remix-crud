@@ -6,13 +6,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node ./server.js",
-    "start": "cross-env NODE_ENV=production node ./server.js"
+    "start": "cross-env NODE_ENV=production node ./server.js",
+    "db:generate": "npx prisma generate"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^5.13.0",
+    "@prisma/extension-pulse": "^1.2.0",
     "@remix-run/express": "^2.9.1",
     "@remix-run/node": "^2.9.1",
     "@remix-run/react": "^2.9.1",
